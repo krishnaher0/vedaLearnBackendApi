@@ -3,10 +3,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
  
 const registerUser = async (req, res) => {
-  const { fullName, email, password, age } = req.body;
+  const { name, email, password, age } = req.body;
  
   try {
-    if (!fullName || !email || !password || !age) {
+    if (!name || !email || !password || !age) {
       return res
         .status(400)
         .json({ success: false, msg: "Please enter all the fields" });
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
  
     const newUser = new User({
-      fullName,
+      name,
       email,
       password: hashedPassword,
       age,
@@ -73,8 +73,9 @@ const loginUser = async (req, res) => {
  
     const payload = {
       _id: user._id,
-      fullName: user.fullName,
+      name: user.name,
       email: user.email,
+      age:user.age
     };
  
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
