@@ -2,6 +2,7 @@ require('dotenv').config();
 const userRoutes=require('./routes/userRoutes')
 const express = require('express');
 const { connectDB } = require('./config/db');
+//set cors for fixing cors error
 const cors=require('cors')
 const corsOrigin={
     origin:'*'
