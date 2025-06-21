@@ -10,21 +10,21 @@ const { getTeachers, getOneTeacher, updateOneTeacher, deleteOneTeacher } = requi
 
 router.get(
     "/",
-    authenticateUser,
-    isAdmin,
-    getTeachers
+    authenticateUser,//validate as a user
+    isAdmin, //check role as an admin
+    getTeachers// get all teachers
 )
 
 router.get(
     "/:id", // req.params.id
-    getOneTeacher
+    getOneTeacher// get teacher by id
 )
 
-router.put("/:id", upload.single("cvImage"), updateOneTeacher);
+router.put("/:id", upload.single("cvImage"), updateOneTeacher);//update teacher with his/her cv
 
 router.delete(
     "/:id", // req.params.id
-    deleteOneTeacher
+    deleteOneTeacher//delete teacher by automatically fetching id
 )
 
 module.exports = router
