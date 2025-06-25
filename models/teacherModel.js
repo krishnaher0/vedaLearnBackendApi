@@ -19,10 +19,8 @@ const TeacherSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    cvImage:{
-        type:String,
-        
-    },
+   cvImage: { type: String, required: false },
+
     role:{
       type:String,
       enum:["Learner","Admin","Teacher"],

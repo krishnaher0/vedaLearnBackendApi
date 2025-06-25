@@ -13,28 +13,29 @@ router.post(
     upload.single("flagPath"),
     createCourse
 );
-router.get("/getall/",
+router.get("/",
     authenticateUser,
     isAdmin,
     getAllCourses
    
 
 )
-router.get("/get/:id",
+router.get("/:id",
     authenticateUser,
     isAdmin,
     getCourseById
    
 
 )
-router.put("/update/:id",
+router.put("/:id",
     authenticateUser,
     isAdmin,
+    upload.single("flagPath"),
     updateCourse
    
 
 )
-router.delete("/delete/:id",
+router.delete("/:id",
     authenticateUser,
     isAdmin,
     deleteCourse

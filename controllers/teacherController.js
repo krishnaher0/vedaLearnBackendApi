@@ -4,13 +4,14 @@ const jwt = require("jsonwebtoken");
 
 exports.registerTeacher = async (req, res) => {
   try {
+    
     // Destructure values from req.body
     const { name, email, password, age ,role} = req.body;
 
     // Get uploaded file info
     const cvImagePath = req.file ? req.file.path : null;
 
-    console.log("Form Data:", req.body);
+    // console.log("Form Data:", req.body);
     console.log("Uploaded File:", req.file);
 
     // Validation
@@ -43,19 +44,17 @@ exports.registerTeacher = async (req, res) => {
       cvImage: cvImagePath,
     });
 
-    await newTeacher.save();
+    const savedTeacher = await newTeacher.save();
 
     return res.status(201).json({
       success: true,
       msg: "User registered successfully",
+      teacher: savedTeacher, 
     });
 
   } catch (e) {
     console.error("Registration Error:", e);
-    return res.status(500).json({
-      success: false,
-      msg: "Internal Server Error",
-    });
+    return res.status(500).json({ success: false, msg: "Internal Server Error" });
   }
 };
 
