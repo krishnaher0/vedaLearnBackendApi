@@ -106,10 +106,6 @@ exports.updateCourse = async (req, res) => {
       updateData.flagPath =  req.file ? req.file.path : null; // add file if uploaded
     }
 
-    console.log("Updating course with ID:", req.params.id);
-    console.log("Request body:", req.body);
-    console.log("Uploaded file (if any):", req.file);
-
     const course = await Course.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
