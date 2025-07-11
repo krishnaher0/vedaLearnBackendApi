@@ -5,12 +5,13 @@ exports.addLesson=async(req,res)=>{
 
   
     const {level,lessonNo,title,courseId}=req.body
+    
        
   const lesson = new Lesson({
     level,
     lessonNo,
     title,
-    course: courseId  // ✅ IMPORTANT: matches your schema's `course` field
+    course: courseId  //  IMPORTANT: matches schema's `course` field
 });
     await lesson.save()
     return res.status(200).json({
@@ -72,6 +73,36 @@ exports.getAllLessons = async (req, res) => {
   
       }
   }
+
+  exports.getLessonsByCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    if (!courseId) {
+      return res.status(400).json({
+        success: false,
+        message: "courseId is required",
+      });
+    }
+
+const lessons = await Lesson.find({ course: courseId }).populate("course").lean();
+
+    console.log(lessons);
+
+    res.status(200).json({
+      success: true,
+      message: "Lessons fetched for course",
+      data: lessons,
+    });
+  } catch (err) {
+    console.error("Error fetching lessons by course:", err);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
   
   exports.updateLesson=async(req,res)=>{
       try{
