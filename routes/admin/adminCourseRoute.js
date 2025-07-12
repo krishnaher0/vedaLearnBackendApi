@@ -15,14 +15,14 @@ router.post(
 );
 router.get("/",
     authenticateUser,
-    isAdmin,
+    
     getAllCourses
    
 
 )
 router.get("/:id",
     authenticateUser,
-    isAdmin,
+    
     getCourseById
    
 
