@@ -264,6 +264,50 @@ exports.getQuestionsByLesson = async (req, res) => {
   }
 };
 
+
+exports.getQuestionByLessonAndIndex = async (req, res) => {
+  try {
+    // Correctly reads from URL path like /lesson/some-id/1
+    const { lessonId, questionIndex: questionIndexStr } = req.params;
+    const questionIndex = parseInt(questionIndexStr, 10);
+
+    if (!lessonId) {
+      return res.status(400).json({ success: false, message: "lessonId is required" });
+    }
+
+    if (isNaN(questionIndex)) {
+      return res.status(400).json({ success: false, message: "questionIndex must be a number" });
+    }
+
+    // Run database queries in parallel for better performance
+  const questions = await Question.find({ lesson: lessonId })
+  .sort({ createdAt: 1 }) // Optional: consistent order
+  .skip(questionIndex - 1)
+  .limit(1)
+  .lean();
+
+const question = questions[0];  // Take the first element
+
+
+
+    if (!question) {
+      return res.status(404).json({ success: false, message: "Question not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      questionIndex,
+      question,
+    });
+
+  } catch (err) {
+    // It's helpful to log the specific error for debugging
+    console.error("Error fetching question by index:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
 exports.deleteAllQuestions = async (req, res) => {
   try {
     await Question.deleteMany();
