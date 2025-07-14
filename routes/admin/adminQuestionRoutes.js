@@ -7,6 +7,7 @@ router.post('/', upload.single('audioUrl'), controller.createQuestion);
 router.get('/', controller.getQuestions);
 router.get('/:id', controller.getQuestionById);
 router.get('/lesson/:lessonId', controller.getQuestionsByLesson);
+router.get('/lesson/:lessonId/index/:questionIndex', controller.getQuestionByLessonAndIndex);
 router.put('/:id', upload.single('audioUrl'), controller.updateQuestion);
 router.delete("/many",controller.deleteAllQuestions)
 router.delete('/:id', controller.deleteQuestion);
