@@ -15,9 +15,9 @@ exports.enrollCourse = async (req, res) => {
       (c) => c.course.toString() === courseId
     );
 
-    if (alreadyEnrolled) {
-      return res.status(400).json({ success: false, message: "Already enrolled" });
-    }
+    // if (alreadyEnrolled) {
+    //   return res.status(400).json({ success: false, message: "Already enrolled" });
+    // }
 
     user.enrolledCourses.push({
       course: courseId,
