@@ -29,6 +29,7 @@ exports.createCourse = async (req, res) => {
     // --- STEP 5: CREATE AND SAVE COURSE ---
     const newCourse = new Course({
       language: language,
+      lesson:[],
       description: description,
       flagPath: flagPath // Use the path from req.file
     });

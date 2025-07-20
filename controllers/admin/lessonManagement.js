@@ -13,7 +13,12 @@ exports.addLesson=async(req,res)=>{
     title,
     course: courseId  //  IMPORTANT: matches schema's `course` field
 });
-    await lesson.save()
+    await lesson.save();
+    await Course.findByIdAndUpdate(
+      courseId,
+      { $push: { lesson: lesson._id } },
+      { new: true } // returns the updated document if needed
+    );
     return res.status(200).json({
         success:true,
         message:"lesson added",

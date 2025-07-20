@@ -24,11 +24,13 @@ const UserSchema = mongoose.Schema(
       enum: ["Learner", "Admin", "Teacher"],
       default: "Learner",
     },
+    subscribed: { type: Boolean, default: false },
     // 👇 NEW: Enrolled courses with progress tracking
     enrolledCourses: [
   {
     course: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true },
     lessonsCompleted: [{ type: mongoose.Schema.Types.ObjectId, ref: "Lesson" }],
+    completed: { type: Boolean, default: false },
     score: { type: Number, default: 0 },
     enrolledAt: { type: Date, default: Date.now },
     
@@ -40,7 +42,9 @@ const UserSchema = mongoose.Schema(
         answeredAt: { type: Date, default: Date.now },
         userAnswer: String, // optional, if you want to store user's submitted value
       }
-    ]
+    ],
+     totalCorrectQuestions: { type: Number, default: 0 },
+    totalIncorrectQuestions: { type: Number, default: 0 },
   }
 ],
  playerStats: {

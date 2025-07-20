@@ -40,7 +40,7 @@ exports.getOneUser = async (req, res) => {
 }
 // update
 exports.updateOneUser = async (req, res) => {
-    const {firstName, lastName } = req.body
+    const {name,age } = req.body
     const _id = req.params.id
     try{
         const user = await User.updateOne(
@@ -49,8 +49,9 @@ exports.updateOneUser = async (req, res) => {
             },
             {
                 $set: {
-                    "firstName": firstName,
-                    "lastName": lastName
+                    "name": name,
+                    
+                    "age":age
                 }
             },
         )

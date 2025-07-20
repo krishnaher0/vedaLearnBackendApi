@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const courseSchema = new mongoose.Schema({
   language: { type: String, required: true },
   description: { type: String ,required:true},
+  lesson: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' }], 
   flagPath:{type:String,
+  
       
 
   },

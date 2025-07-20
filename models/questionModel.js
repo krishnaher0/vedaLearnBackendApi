@@ -7,7 +7,7 @@ const baseOptions = {
 };
 
 const questionSchema = new mongoose.Schema({
-  course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
+  // course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
   lesson: { type: mongoose.Schema.Types.ObjectId, ref: 'Lesson', required: true },
   questionType: { type: String, required: true,index: true },
   prompt: { type: String },
