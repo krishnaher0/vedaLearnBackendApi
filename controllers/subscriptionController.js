@@ -5,6 +5,9 @@ const CryptoJS = require("crypto-js");
 const { v4: uuidv4 } = require("uuid");
 const Subscription = require("../models/subscription.js");
 const Plan = require("../models/Plan.js");
+require('dotenv').config(); // at the top of your file (only once in your app)
+const success = process.env.ESEWA_SUCCESS_URL;
+const failure = process.env.ESEWA_FAILURE_URL;
 
 dotenv.config();
 
@@ -80,13 +83,13 @@ if (user) {
   await user.save();
 }
 
-        return res.redirect("http://localhost:5173/payment-success");
+        return res.redirect(success);
       }
 
-      res.redirect("http://localhost:5173/payment-failure");
+      res.redirect(failure);
     } catch (error) {
       console.error("Verification error:", error);
-      res.redirect("http://localhost:5173/payment-failure");
+      res.redirect(failure);
     }
   };
 }
