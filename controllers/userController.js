@@ -126,7 +126,7 @@ const sendResetLink = async (req, res) => {
     const transporter = getTransporter(); // ✅ Use dynamic transporter
  
     const mailOptions = {
-      from: `"TradeVerse" <${process.env.EMAIL_USER}>`,
+      from: `"Vedlingo" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Reset your password",
       html: `
