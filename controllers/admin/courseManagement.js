@@ -1,4 +1,44 @@
 const Course = require("../../models/courseModel");
+const User = require("../../models/User");
+
+exports.getAllCoursesWithEnrollmentStatus = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    console.log("Decoded User ID:", req.user?._id);
+
+
+    // Fetch all courses
+    const courses = await Course.find();
+
+    // Get user's enrolled course IDs
+    const user = await User.findById(userId).select("enrolledCourses.course");
+    const enrolledCourseIds = user.enrolledCourses.map((item) =>
+      item.course.toString()
+    );
+
+    // Attach "enrolled" flag to each course
+    const coursesWithStatus = courses.map((course) => {
+      const isEnrolled = enrolledCourseIds.includes(course._id.toString());
+      return {
+        ...course.toObject(), // convert mongoose document to plain object
+        isEnrolled,
+      };
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "All courses fetched with enrollment status",
+      data: coursesWithStatus,
+    });
+  } catch (err) {
+    console.error("Error fetching courses:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 
 exports.createCourse = async (req, res) => {
   try {
@@ -73,7 +113,7 @@ exports.getAllCourses=async(req,res)=>{
 
 exports.getCourseById=async (req,res)=>{
     try{
-      const flagPath = req.file ? req.file.path : null;
+     
         const course=await Course.findById(req.params.id);
         if(!course) return res.status(400).json({
             success:false,
@@ -142,6 +182,30 @@ exports.deleteCourse=async(req,res)=>{
         return res.status(500).json({ success: false, message: "Server Error" });
     }
 }
+
+// const getEnrolledCourses = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+
+//     const user = await User.findById(userId).populate('enrolledCourses');
+
+//     if (!user) {
+//       return res.status(404).json({ success: false, msg: "User not found" });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       enrolledCourses: user.enrolledCourses,
+//     });
+//   } catch (err) {
+//     console.error("Error fetching enrolled courses:", err);
+//     return res.status(500).json({ success: false, msg: "Server Error" });
+//   }
+// };
+
+// module.exports = {
+//   getEnrolledCourses,
+// };
 
 
 
