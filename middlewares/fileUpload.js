@@ -1,6 +1,7 @@
 const multer = require("multer")
-const { v4: uuidv4 } = require("uuid")
+
 const path = require("path");
+const fs = require("fs");
 
 
 const storage = multer.diskStorage({
@@ -9,7 +10,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname); // safer than splitting by `.`
-    cb(null, `${file.fieldname}-${uuidv4()}${ext}`);
+    cb(null, `${file.fieldname}`);
   },
 });
 
