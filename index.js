@@ -34,11 +34,16 @@ app.use(cors({
 //   credentials: true,  // if you use cookies or authorization headers
 // }));
 const PORT = process.env.PORT;
-app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
+
 connectDB();
+app.use(express.json());
+
+
+app.use(express.urlencoded({extended:true}))
 app.use("/api/subscription", subscriptionRoutes);
 
 app.use("/api/auth",userRoutes)
@@ -51,7 +56,7 @@ app.use("/api/admin/lessons",adminLessonRoutes)
 app.use("/api/admin/learnings",learningRoutes)
 app.use("/api/admin/questions",adminQuestionRoutes)
 app.use("/api/plan",planRoutes)
-app.use(express.json());
+
 
 
 app.listen(PORT,()=>{
