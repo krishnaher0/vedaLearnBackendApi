@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const { getUsers, 
-    getOneUser, updateOneUser,
+    getOneUser, updateOneUser,getEnrolledCourses,
     deleteOneUser} = require("../../controllers/admin/userManagement")
 const { authenticateUser, isAdmin } = require("../../middlewares/authorizedUser")
 
