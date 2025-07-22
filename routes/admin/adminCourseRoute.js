@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {createCourse,getAllCourses,getCourseById,updateCourse,deleteCourse} = require('../../controllers/admin/courseManagement');
+const {createCourse,getAllCourses,getCourseById,updateCourse,deleteCourse,getAllCoursesWithEnrollmentStatus} = require('../../controllers/admin/courseManagement');
 const {authenticateUser,isAdmin, isAdminOrTeacher}=require("../../middlewares/authorizedUser")
 // can be implemented using single import
 const upload = require("../../middlewares/fileUpload")
 
-// implement using dot function
+router.get("/with-status", authenticateUser, getAllCoursesWithEnrollmentStatus);
+
+
 router.post(
     '/',
     authenticateUser,
@@ -39,7 +41,9 @@ router.delete("/:id",
     authenticateUser,
     isAdmin,
     deleteCourse
-   
 
 )
+
+
+
 module.exports=router
