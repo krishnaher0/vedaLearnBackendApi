@@ -23,7 +23,7 @@ exports.getAllCoursesWithEnrollmentStatus = async (req, res) => {
         ...course.toObject(), // convert mongoose document to plain object
         isEnrolled,
       };
-    });
+    })
 
     return res.status(200).json({
       success: true,

@@ -2,16 +2,22 @@ const multer = require("multer")
 
 const path = require("path");
 const fs = require("fs");
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('Created uploads directory');
+}
 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads"); // ✅ Save to 'uploads' folder
   },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname); // safer than splitting by `.`
-    cb(null, `${file.fieldname}`);
-  },
+ filename: (req, file, cb) => {
+  const ext = path.extname(file.originalname);
+  // Generate unique filename: timestamp + original filename
+  cb(null, `${Date.now()}-${file.originalname}`);
+},
 });
 
 const fileFilter = (req, file, cb) => {

@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const { getUsers, 
-    getOneUser, updateOneUser,getEnrolledCourses,
+    getOneUser, updateOneUser,
     deleteOneUser} = require("../../controllers/admin/userManagement")
 const { authenticateUser, isAdmin } = require("../../middlewares/authorizedUser")
 
@@ -13,6 +13,7 @@ router.get(
     isAdmin,
     getUsers
 )
+
 
 router.get(
     "/:id", // req.params.id
