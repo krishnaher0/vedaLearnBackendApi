@@ -19,7 +19,7 @@ router.get("/",
    
 );
 router.get("/course/:courseId",
-    authenticateUser,
+    
    
     getLessonsByCourse
    

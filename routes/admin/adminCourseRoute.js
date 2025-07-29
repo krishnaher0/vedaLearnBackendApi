@@ -16,7 +16,7 @@ router.post(
     createCourse
 );
 router.get("/",
-    authenticateUser,
+    
     
     getAllCourses
    

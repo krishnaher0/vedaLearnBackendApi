@@ -46,6 +46,7 @@ exports.getAllLearnings = async (req, res) => {
   }
 };
 
+
 exports.getLearningsByCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -58,9 +59,11 @@ exports.getLearningsByCourse = async (req, res) => {
     }
 
     const learnings = await Learning.find({ course: courseId })
-      .populate("course") // optional, only if you want course details
+      // .populate("course") // optional, only if you want course details
       .sort({ createdAt: -1 })
       .lean();
+
+      
 
     res.status(200).json({
       success: true,

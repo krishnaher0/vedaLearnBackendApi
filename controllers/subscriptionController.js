@@ -46,7 +46,8 @@ class SubscriptionController {
         planName: plan.name,
         productCode,
         signature,
-        success_url: `http://localhost:3001/api/subscription/verify`,  // no planId param here
+        success_url: `http://localhost:3001
+        /api/subscription/verify`,  // no planId param here
         failure_url: `http://localhost:3001/subscription/fail`,
       });
     } catch (error) {

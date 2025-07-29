@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const upload=require("../../middlewares/fileUpload")
 const { getUsers, 
     getOneUser, updateOneUser,
     deleteOneUser} = require("../../controllers/admin/userManagement")
@@ -22,7 +23,9 @@ router.get(
 
 router.put(
     "/:id", // req.params.id
-    updateOneUser
+    
+    upload.single("profileImage"),
+    updateOneUser,
 )
 
 router.delete(

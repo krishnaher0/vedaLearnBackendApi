@@ -5,6 +5,7 @@ const { Question } = require("../models/questionModel");
 const mongoose = require("mongoose");
 
 const Course = require("../models/courseModel");
+
 exports.enrollCourse = async (req, res,next) => {
   try {
     const userId = req.params.id;
@@ -338,6 +339,43 @@ exports.getAllCourseEnrollmentStats = async (req, res) => {
     console.error("Error getting course enrollment stats:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
+
+  
 };
 
 
+exports.getEnrolledCourses = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find the user by ID and populate the 'course' field within 'enrolledCourses'
+    // We select only the 'enrolledCourses' field to keep the response lean
+    const user = await User.findById(userId)
+      .select("enrolledCourses")
+      .populate("enrolledCourses.course");
+
+    // If user not found
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If user has no enrolled courses
+    if (!user.enrolledCourses || user.enrolledCourses.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "User is not enrolled in any courses", enrolledCourses: [] });
+    }
+
+        const coursesOnly = user.enrolledCourses.map(enrolledCourse => enrolledCourse.course);
+
+
+    // Return the enrolled courses
+    res.status(200).json({
+      message: "Enrolled courses fetched successfully",
+      enrolledCourses: coursesOnly,
+    });
+  } catch (error) {
+    console.error("Error fetching enrolled courses:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};

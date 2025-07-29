@@ -6,9 +6,6 @@ const courseSchema = new mongoose.Schema({
   description: { type: String ,required:true},
   lesson: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' }], 
   flagPath:{type:String,
-  
-      
-
   },
 }, { timestamps: true });
 

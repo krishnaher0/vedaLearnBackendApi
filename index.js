@@ -56,6 +56,7 @@ app.use("/api/admin/lessons",adminLessonRoutes)
 app.use("/api/admin/learnings",learningRoutes)
 app.use("/api/admin/questions",adminQuestionRoutes)
 app.use("/api/plan",planRoutes)
+app.use("/api/subscription",subscriptionRoutes)
 
 
 
