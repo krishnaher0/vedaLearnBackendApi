@@ -16,6 +16,8 @@ router.post(
     createCourse
 );
 router.get("/",
+    authenticateUser,
+    
     
     
     getAllCourses
@@ -31,7 +33,7 @@ router.get("/:id",
 )
 router.put("/:id",
     authenticateUser,
-    isAdmin,
+    isAdminOrTeacher,
     upload.single("flagPath"),
     updateCourse
    

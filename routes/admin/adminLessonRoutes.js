@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getAllLessons,getLessonById,updateLesson,deleteLesson, addLesson,getLessonsByCourse} = require('../../controllers/admin/lessonManagement');
-const {authenticateUser,isAdmin}=require("../../middlewares/authorizedUser")
+const {authenticateUser,isAdmin, isAdminOrTeacher}=require("../../middlewares/authorizedUser")
 // can be implemented using single import
 // const upload = require("../../middlewares/fileUpload")
 
@@ -14,11 +14,13 @@ router.post(
 
 router.get("/",
     authenticateUser,
+    isAdmin,
    
     getAllLessons
    
 );
 router.get("/course/:courseId",
+    isAdminOrTeacher,
     
    
     getLessonsByCourse
@@ -34,14 +36,14 @@ router.get("/:id",
 )
 router.put("/:id",
     authenticateUser,
-    isAdmin,
+    isAdminOrTeacher,
     updateLesson
    
 
 )
 router.delete("/:id",
     authenticateUser,
-    isAdmin,
+    isAdminOrTeacher,
     deleteLesson
    
 
