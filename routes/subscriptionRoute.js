@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get("/buy/:plan", authenticateUser, SubscriptionController.buy);
 router.get("/verify", SubscriptionController.verify);
+router.get("/subscribed-users", SubscriptionController.getUserSubscriptions);
 
 module.exports=router;

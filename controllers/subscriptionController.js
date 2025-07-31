@@ -93,6 +93,17 @@ if (user) {
       res.redirect(failure);
     }
   };
+
+   static getUserSubscriptions = async (req, res) => {
+    try {
+      const subs = await Subscription.find().populate("plan", "name price").populate("userId", "name");;
+      res.json({ success: true, data: subs });
+    } catch (err) {
+      console.error("Error getting subscriptions:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  };
 }
+
 
 module.exports = SubscriptionController;
