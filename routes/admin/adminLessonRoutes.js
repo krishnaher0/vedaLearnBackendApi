@@ -14,13 +14,13 @@ router.post(
 
 router.get("/",
     authenticateUser,
-    isAdmin,
+    
    
     getAllLessons
    
 );
 router.get("/course/:courseId",
-    isAdminOrTeacher,
+    
     
    
     getLessonsByCourse

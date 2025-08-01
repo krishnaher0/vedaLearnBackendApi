@@ -5,7 +5,7 @@ const { authenticateUser } = require("../middlewares/authorizedUser");
 
 
 router.post("/", planController.createPlan);
-router.get("/", authenticateUser,planController.getAllPlans);
+router.get("/",authenticateUser,planController.getAllPlans);
 router.get("/:id", planController.getPlanById);
 router.put("/:id", planController.updatePlan);
 router.delete("/:id", planController.deletePlan);

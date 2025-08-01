@@ -85,7 +85,7 @@ describe("User Progress Management", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
     // Corrected expected message based on your error output
-    expect(res.body.message).toBe("Lesson marked as completed"); 
+    expect(res.body.message).toBe("Lesson marked as completed. Course also marked as completed."); 
 
     const updatedUser = await User.findById(user._id);
     expect(updatedUser.enrolledCourses[0].lessonsCompleted).toContainEqual(lesson._id);
